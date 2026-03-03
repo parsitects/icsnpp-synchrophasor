@@ -1,6 +1,10 @@
 # @TEST-EXEC: touch synchrophasor.log synchrophasor_cmd.log synchrophasor_cfg.log synchrophasor_cfg_detail.log synchrophasor_hdr.log synchrophasor_data.log synchrophasor_data_detail.log
 # @TEST-EXEC: zeek -C -r ${TRACES}/C37.118_1PMU_UDP.pcap %INPUT
 # @TEST-EXEC: zeek-cut id.orig_h id.orig_p id.resp_h id.resp_p proto service < conn.log > conn.tmp && mv conn.tmp conn.log
+# @TEST-EXEC: zeek-cut -n uid cfg_frame_id < synchrophasor_cfg.log > synchrophasor_cfg.tmp && mv synchrophasor_cfg.tmp synchrophasor_cfg.log
+# @TEST-EXEC: zeek-cut -n uid cfg_frame_id < synchrophasor_cfg_detail.log > synchrophasor_cfg_detail.tmp && mv synchrophasor_cfg_detail.tmp synchrophasor_cfg_detail.log
+# @TEST-EXEC: zeek-cut -n uid data_frame_id < synchrophasor_data.log > synchrophasor_data.tmp && mv synchrophasor_data.tmp synchrophasor_data.log
+# @TEST-EXEC: zeek-cut -n uid data_frame_id < synchrophasor_data_detail.log > synchrophasor_data_detail.tmp && mv synchrophasor_data_detail.tmp synchrophasor_data_detail.log
 # @TEST-EXEC: btest-diff conn.log
 # @TEST-EXEC: btest-diff synchrophasor.log
 # @TEST-EXEC: btest-diff synchrophasor_cmd.log
